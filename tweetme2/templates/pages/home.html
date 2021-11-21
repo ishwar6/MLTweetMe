@@ -4,5 +4,46 @@ t
 {% endblock %}
 
 {% block content %}
-Tweet Me
+HOME PAGE TWEET ME
+<div id = "tweets" >
+Replace Me
+</div>
+
+
+<script>
+const tweetsElements = document.getElementById("tweets")
+
+
+const xhr = new XMLHttpRequest()
+const method = "GET"
+const url = "/tweets"
+const responseType = "json"
+
+xhr.responseType = responseType
+xhr.open(method, url)
+xhr.onload = function() {
+    console.log("he")
+ 
+    const items = xhr.response.response
+    console.log(items)
+    var finalTweetString = ""
+    var i; 
+    for(i = 0; i<items.length; i++){
+        console.log(i)
+        console.log(items[i])
+        var tweet_data =  "<div class='mb-4'><h1>" +
+                items[i].id + "</h1><p>" 
+                    + items[i].content +
+                    
+            "</p></div>"
+            finalTweetString = finalTweetString + tweet_data 
+    }
+    tweetsElements.innerHTML = finalTweetString
+
+    
+}
+
+xhr.send()
+</script>
+
 {% endblock content %}
