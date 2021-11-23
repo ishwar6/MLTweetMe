@@ -10,6 +10,20 @@ Replace Me
 </div>
 
 
+<div class="row" >
+<div class="col-md-4 mx-auto col-10">
+    <form action="/create-tweets/" method="POST" class="form">
+        {% csrf_token %}
+        <input type="hidden" value="/" name="next">
+        <textarea name="content" id="" class="form-control"></textarea>
+        <button type="submit" class="btn btn-primary" >Tweet</button>
+    </form>
+
+</div>
+</div>
+
+
+
 <script>
 const tweetsElements = document.getElementById("tweets")
 
@@ -20,11 +34,17 @@ const url = "/tweets"
 const responseType = "json"
 
 xhr.responseType = responseType
+function handleDidLike( tweet_id, currentCount ){
+    console.log(tweet_id, currentCount)
+}
+  function Likebtn(tweet){
+    return "<button class = 'btn btn-primary btn-sm' onclick = handleDidLike(" + tweet.id + ", "+ tweet.likes +")>"+ tweet.likes+ " Likes</button>"
+}
 xhr.open(method, url)
 function formatTweet(tweet){
     var ftweet = "<div class='mb-4'id = 'tweet-" 
     + tweet.id + "'><h1>" +  tweet.id + "</h1><p>" 
-                    + tweet.content +      
+                    + tweet.content +   Likebtn(tweet) +   
             "</p></div>"
     return ftweet
 }
