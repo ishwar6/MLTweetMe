@@ -1,4 +1,5 @@
 
+from functools import reduce
 from itertools import accumulate, groupby, combinations, combinations_with_replacement
 import operator
 from itertools import count, cycle, repeat
@@ -554,3 +555,63 @@ for i in repeat(1, 4):
     print(i)
 
 # 1111 (if second argument is not passed, it repeats infinite times)
+
+# lambda function: Expression, one line,
+
+
+def add10(x): return x+10
+
+
+print(add10(5))  # 15
+
+
+def multiple_arg(x, y): return x*y-y//3
+
+
+print(multiple_arg(10, 6))
+# 58
+# use case of lambda for sorting
+
+points2D = [(1, 2), (12, 3), (-2, 3), (4, 5)]
+points2D_sorted = sorted(points2D)
+points2D_sorted_with_y = sorted(points2D, key=lambda x: x[1])
+print(points2D)
+print(points2D_sorted)
+print(points2D_sorted_with_y)
+
+# [(1, 2), (12, 3), (-2, 3), (4, 5)]
+# [(-2, 3), (1, 2), (4, 5), (12, 3)]
+# [(1, 2), (12, 3), (-2, 3), (4, 5)]
+
+points2D_sorted_with_sum = sorted(points2D, key=lambda x: x[0] + x[1])
+print(points2D_sorted_with_sum)
+#[(-2, 3), (1, 2), (4, 5), (12, 3)]
+
+# usecase 2 of lambda
+#map(function, sequence)
+
+
+a = [1, 2, 3, 4, 5]
+b = map(lambda x: x*2, a)
+print(b)  # <map object at 0x7fc3c2334fa0>
+print(list(b))  # [2, 4, 6, 8, 10]
+
+# can be done by list comprehension
+c = [i*2 for i in a]
+print(c)
+
+# usecase3
+# filter (function, sequence) returns True or false
+
+b = filter(lambda x: x % 2 == 0, a)
+print(list(b))  # [2, 4]
+
+c = [i for i in a if i % 2 == 0]
+print(c)  # [2,4]
+#from functools import reduce
+# usecase 4
+# Apply a function of two arguments cumulatively to the items of a sequence, from left to right, so as to
+# reduce the sequence to a single value
+#reduce(function, sequence)
+product_a = reduce(lambda x, y: x*y, a)
+print(product_a)  # 120 (continued multiply of 1*2*3*4*5)
