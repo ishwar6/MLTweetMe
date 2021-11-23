@@ -1,4 +1,7 @@
 
+from itertools import accumulate, groupby, combinations, combinations_with_replacement
+import operator
+from itertools import count, cycle, repeat
 from collections import Counter
 from collections import namedtuple
 from collections import OrderedDict  # Dictionary that remembers insertion order
@@ -451,3 +454,103 @@ print(list(perm))
 perm = permutations([1, 2, 3], 2)
 print(perm)  # <itertools.permutations object at 0x7fae8d33c8b0>
 print(list(perm))  # [(1, 2), (1, 3), (2, 1), (2, 3), (3, 1), (3, 2)]
+
+
+a = [1, 2, 3, 4]
+comb = combinations(a, 2)
+print(list(comb))
+#[(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)]
+
+comb_wr = combinations_with_replacement(a, 2)
+print(list(comb_wr))
+#[(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4)]
+
+
+acc = accumulate(a)
+print(list(acc))
+# [1, 3, 6, 10] #it cumputed sum by default (1+2 = 3)
+
+# import operator (to convert sum into successive multiplication)
+
+acc_mul = accumulate(a, func=operator.mul)
+print(list(acc_mul))
+#[1, 2, 6, 24]
+
+
+a = [1, 2, 4, 11, 4, 2, 12, 3, 4]
+acc_max = accumulate(a, func=max)
+print(list(acc_max))
+# [1, 2, 4, 11, 11, 11, 12, 12, 12] Gives the last encountered max value
+
+a = [1, 2, 3, 4]
+
+
+def smaller(x):
+    return x < 3
+
+
+group_obj = groupby(a, key=smaller)
+# print(list(group_obj))
+# [(True, <itertools._grouper object at 0x7fbf7bb34b80>),
+# (False, <itertools._grouper object at 0x7fbf7bb34b50>)]
+# iterate over group_obj by: for key, value in group_obj
+
+for key, value in group_obj:
+    print(key, list(value))
+
+#True [1, 2]
+#False [3, 4]
+
+
+#group_obj = groupby(a, key=lambda x: x<3)
+
+# you can group by almost anything by this itertool
+
+persons = [
+    {"name": "Teena", "age": 11},
+    {"name": "Rahul", "age": 11},
+    {"name": "Rita", "age": 12},
+    {"name": "Seema", "age": 13},
+    {"name": "Rahul", "age": 13},
+]
+group_with_same_age = groupby(persons, key=lambda x: x['age'])
+for key, value in group_with_same_age:
+    print(key, list(value))
+#11 [{'name': 'Teena', 'age': 11}, {'name': 'Rahul', 'age': 11}]
+#12 [{'name': 'Rita', 'age': 12}]
+#13 [{'name': 'Seema', 'age': 13}, {'name': 'Rahul', 'age': 13}]
+
+group_with_same_first_lettername = groupby(
+    persons, key=lambda x: x['name'][0] == "R")
+for key, value in group_with_same_first_lettername:
+    if key == True:
+        print(key, list(value))
+
+#True [{'name': 'Rahul', 'age': 11}, {'name': 'Rita', 'age': 12}]
+#True [{'name': 'Rahul', 'age': 13}]
+
+#from itertools import count, cycle, repeat
+
+# count goes on from given number till infinite: [n, infinite)
+
+for i in count(10):
+    print(i)
+    if i == 12:
+        break
+# 10,11,12
+# cycle works over an iterable
+a = [1, 2, 3]
+for i in cycle(a):
+    print(i)
+    if i == 3:
+        break
+
+# 123 123 123 and will go on in new lines
+# for break with i==3 it can only complete one cycle here
+
+
+# repeat repeats the given number
+for i in repeat(1, 4):
+    print(i)
+
+# 1111 (if second argument is not passed, it repeats infinite times)
