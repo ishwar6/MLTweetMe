@@ -11,9 +11,13 @@
     <title>Hello {% block head_title %}{% endblock %}</title>
   </head>
   <body>
-    {% block content %}
+     {% include "components/navbar.html" %} 
+     <div class="container-fluid">
+        {% block content %}
 
-    {% endblock content %}
+        {% endblock content %} 
+     </div>
+  
 
     <!-- Optional JavaScript; choose one of the two! -->
 
