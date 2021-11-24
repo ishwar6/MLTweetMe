@@ -615,3 +615,93 @@ print(c)  # [2,4]
 #reduce(function, sequence)
 product_a = reduce(lambda x, y: x*y, a)
 print(product_a)  # 120 (continued multiply of 1*2*3*4*5)
+
+
+# exceptions occurs when sytex error is not present
+
+# a*2
+# NameError: name 'a' is not defined
+
+# 'a'*2.3 => TypeError: can't multiply sequence by non-int of type 'float'
+# 'a'+4 =>  TypeError
+
+# import a => ModuleNotFoundError: No module named 'a'
+
+# f = open('a.txt') => FileNotFoundError: [Errno 2] No such file or directory: 'a.txt'
+
+a = [1, 2, 3]
+# a.remove(33) => ValueError: list.remove(x): x not in list
+
+# a[32] => IndexError: list index out of range
+
+my_dict = {'a': 32}
+# my_dict['b'] => KeyError: 'b'
+# 2/0 => ZeroDivisionError: division by zero
+
+x = 5
+if x < 0:
+    raise Exception('x should be positive')
+# Exception: x should be positive
+
+
+a = 5  # (pass negative to get error)
+assert(a >= 0), 'x is not positive'
+#AssertionError: x is not positive
+
+try:
+    a = 5/0
+except:
+    print('an error happened')
+
+# an error happened
+
+try:
+    a = 4-'a'
+except Exception as e:
+    print(e)
+# unsupported operand type(s) for -: 'int' and 'str'
+
+
+try:
+    a = 4-3
+    b = 3/0
+except ZeroDivisionError as e:
+    print(e)
+except TypeError as e1:
+    print(e1)
+else:
+    print("everything is fine")
+finally:
+    print("cleaning up...")
+
+
+# you can catch multiple error, but for more than one error occuring, only first will be captured.
+
+
+# if we inherit the exception class
+class ValueTooHighError(Exception):
+    pass
+
+
+class ValueTooSmallError(Exception):
+    def __init__(self, message, value):
+        self.message = message
+        self.value = value
+
+
+def test_value(x):
+    if x > 100:
+        raise ValueTooHighError("Value is higher")
+    if x < 5:
+        raise ValueTooSmallError("value is too small", x)
+
+
+test_value(10)
+# __main__.ValueTooHighError: Value is higher (when 1000 is inserted, but then flow of program will be inhibited)
+
+
+try:
+    test_value(2)
+except ValueTooSmallError as e:
+    print(e.message, e.value)
+# value is too small 2
