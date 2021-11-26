@@ -8,4 +8,12 @@ class Node:
 
 class LinkedList:
     def __init__(self):
+
         self.head = None
+
+
+llist = LinkedList()
+
+llist.head = Node(1)
+llist.head = Node(2)
+print(llist.head)
