@@ -2,7 +2,7 @@
 
 class Node:
     def __init__(self, data=None, next=None):
-        print("Running for", data)
+
         self.data = data
         self.next = None
 
@@ -13,10 +13,16 @@ class LinkedList:
         self.head = None
 
     def printList(self):
+        if self.head is None:
+            print("EMPTY")
+            return None
         temp = self.head
         while(temp):
-            print(temp.data, "-- ->", end=" ")
+            print(temp.data, end=" ")
+            if temp.next:
+                print("-->", end=" ")
             temp = temp.next
+        print("")
 
     def insert_at_beg(self, data):
         node = Node(data)
@@ -26,6 +32,7 @@ class LinkedList:
             temp = self.head
             node.next = temp
             self.head = node
+        self.printList()
 
     def insert_at_end(self, data):
         node = Node(data)
@@ -36,22 +43,44 @@ class LinkedList:
             while temp.next:
                 temp = temp.next
             temp.next = node
+        self.printList()
+
+    def delete_from_beg(self):
+        if self.head:
+            print("deleted node from beg", self.head.data)
+            temp = self.head.next
+            self.head = temp
+        else:
+            print("Empty linked list")
+
+    def delete_end(self):
+        if self.head and self.head.next:
+            temp = self.head
+            while temp.next.next:
+                temp = temp.next
+            temp.next = None
+        elif self.head:
+
+            self.head = None
+        else:
+            print("EMPTY")
 
 
 llist = LinkedList()
+llist.insert_at_beg(1)
+llist.delete_end()
+llist.insert_at_end(2)
+llist.delete_from_beg()
+llist.delete_from_beg()
+llist.delete_from_beg()
+llist.insert_at_end(3)
+llist.delete_from_beg()
+llist.insert_at_beg(0)
+llist.delete_end()
 
-llist.head = Node(1)
-second = Node(2)
-third = Node(3)
-llist.head.next = second
-second.next = third
-
-print(llist.head)
-llist.insert_at_beg(22)
-llist.insert_at_end(123)
-llist.insert_at_beg(11)
-llist.insert_at_end(33)
+print("Final")
 llist.printList()
+print("")
 print("repeat")
 
 # __REVISION__
