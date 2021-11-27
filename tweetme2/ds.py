@@ -52,3 +52,32 @@ llist.insert_at_end(123)
 llist.insert_at_beg(11)
 llist.insert_at_end(33)
 llist.printList()
+print("repeat")
+
+# __REVISION__
+
+
+class Nodes:
+    def __init__(self, data=int, next=None) -> None:
+        self.data = data
+        self.next = next
+
+
+class Linkedlists:
+    def __init__(self) -> None:
+        self.head = None
+
+    def printl(self):
+        temp = self.head
+        while temp:
+            print(temp.data, "-->", end=" ")
+            temp = temp.next
+
+
+first = Nodes(1)
+second = Nodes(2)
+# to get a cyclic linked list use: second = Nodes(2, first)
+L = Linkedlists()
+L.head = first
+first.next = second
+L.printl()
