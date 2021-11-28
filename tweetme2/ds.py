@@ -91,7 +91,6 @@ class LinkedList:
             elif temp.next:
                 temp.next = None
             else:
-
                 self.head = None
 
     def length_of_list(self):
@@ -106,15 +105,67 @@ class LinkedList:
         return l
         print("Length of list is", l)
 
+    def search_x(self, x):
+        if self.head:
+            temp = self.head
+            k = 1
+            while temp:
+                if temp.data == x:
+                    print("found at position", k)
+                    return k
+                else:
+                    if temp.next:
+                        temp = temp.next
+                        k += 1
+                    else:
+                        return -1
+            return -1
+
+        else:
+            print("Not found")
+            return -1
+
+    def delete_value_x(self, x):
+        if self.head:
+            item = self.search_x(x)
+
+            if item != -1:
+
+                if item == 1:
+                    print("running")
+                    if self.head.next:
+                        self.head = self.head.next
+                    else:
+                        self.head = None
+                    return 1
+
+                temp = self.head
+
+                while item > 2:
+                    temp = temp.next
+                    item -= 1
+
+                if temp.next.next:
+
+                    temp.next = temp.next.next
+                else:
+
+                    temp.next = None
+
+            else:
+                print(x, "do not found in the list")
+
 
 llist = LinkedList()
 llist.insert_at_beg(1)
 llist.insert_at_end(2)
 llist.insert_at_end(3)
-llist.insert_at_beg(0)
-llist.insert_at_beg(-1)
-llist.length_of_list()
-llist.delete_x_position(3)
+
+# llist.delete_x_position(3)
+# llist.search_x(-2)
+print("deletion")
+llist.printList()
+llist.delete_value_x(3)
 
 
 print("Final")
