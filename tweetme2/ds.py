@@ -155,17 +155,90 @@ class LinkedList:
             else:
                 print(x, "do not found in the list")
 
+    def find_middle(self):
+        if self.head:
+            fast = slow = self.head
+            while fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+            print(slow.data)
+
+    def detect_loop(self):
+        if self.head:
+            s = set()
+
+            temp = self.head
+            while temp:
+                if temp in s:
+                    print("detected")
+                    return True
+                s.add(temp)
+
+                temp = temp.next
+
+        return False
+
+    def floyd_cycle_loop_detect(self):
+        if self.head:
+            slow = fast = self.head
+            while slow and fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+                if slow == fast:
+                    return True
+
+        return False
+
+    # remove repeated elements from a sorted linked list
+
+    def remove_repeated_from_sorted(self):
+        if self.head:
+            temp = self.head
+            while temp.next:
+                if temp.data == temp.next.data:
+                    temp.next = temp.next.next
+                else:
+                    temp = temp.next
+
+    def remove_repeated_from_unsorted(self):
+        if self.head:
+            prev = None
+            temp = self.head
+            s = set()
+            while temp.next:
+                if temp.data in s:
+                    prev.next = temp.next
+                    temp = prev.next
+                else:
+                    s.add(temp.data)
+                    prev = temp
+                    temp = temp.next
+
 
 llist = LinkedList()
 llist.insert_at_beg(1)
+llist.insert_at_beg(1)
 llist.insert_at_end(2)
 llist.insert_at_end(3)
+llist.insert_at_end(4)
+llist.insert_at_end(5)
+llist.insert_at_end(2)
+llist.insert_at_end(5)
+llist.insert_at_end(33)
+llist.insert_at_end(6)
+# llist.head.next.next = llist.head #to make a loop in the linked list
+
+print(llist.detect_loop())
+print(llist.floyd_cycle_loop_detect())
 
 # llist.delete_x_position(3)
 # llist.search_x(-2)
-print("deletion")
+print("Middle")
 llist.printList()
-llist.delete_value_x(3)
+# llist.find_middle()
+# llist.remove_repeated_from_sorted()
+llist.remove_repeated_from_unsorted()
+# llist.delete_value_x(3)
 
 
 print("Final")
