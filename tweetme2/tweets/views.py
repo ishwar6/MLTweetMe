@@ -14,6 +14,10 @@ ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 def home_view(request, *args, **kwargs):
     print(args, kwargs)
+   # print(request.sessions)
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+    print(request.session)
 
     return render(request, "pages/home.html", context={}, status=200)
 
