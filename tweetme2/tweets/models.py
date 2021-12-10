@@ -34,5 +34,5 @@ class Membership(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     date_joined = models.DateField(
-        auto_now_add=True, auto_now=True, auto_created=True)
+        auto_now=True, auto_created=True)
     invite_reason = models.CharField(max_length=64)
