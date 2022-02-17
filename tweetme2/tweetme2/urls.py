@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-# from try2.views import Article
+from try2.models import Group
 from tweets.views import home_view, tweet_list_view, tweet_detail_view, tweet_create_form
 
 urlpatterns = [
