@@ -20,6 +20,3 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['headline']
-
-# every article have a reporter
-# reporter can have multiple articles
